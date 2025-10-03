@@ -1,1 +1,94 @@
-/*  your css code here. If applicable */
+:root {
+  --track: #e0e0e0;
+  --progress: #3498db;
+  --inactive: #bdbdbd;
+  --active: #3498db;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: Arial, sans-serif;
+  background: #f7f7fb;
+}
+
+.wrapper {
+  width: min(700px, 92vw);
+}
+
+.progress-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 24px;
+}
+
+.progress-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: var(--track);
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+
+.progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--progress);
+  transform: translateY(-50%);
+  transition: width 300ms ease;
+  border-radius: 2px;
+}
+
+.circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--inactive);
+  color: #555;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.circle.active {
+  border-color: var(--active);
+  color: var(--active);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--active);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 50ms ease;
+}
+
+button:active { transform: translateY(1px); }
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
