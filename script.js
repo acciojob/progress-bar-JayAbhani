@@ -1,33 +1,36 @@
-const progress = document.getElementById('progress');
-const prevBtn = document.getElementById('prev');
-const nextBtn = document.getElementById('next');
-const circles = document.querySelectorAll('.circle');
+const progress = document.getElementById("progress");
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
+const circles = document.querySelectorAll(".circle");
 
-let current = 1;
+let currentStep = 1;
 
-nextBtn.addEventListener('click', () => {
-  if (current < circles.length) current++;
+next.addEventListener("click", () => {
+  currentStep++;
+  if (currentStep > circles.length) currentStep = circles.length;
   update();
 });
 
-prevBtn.addEventListener('click', () => {
-  if (current > 1) current--;
+prev.addEventListener("click", () => {
+  currentStep--;
+  if (currentStep < 1) currentStep = 1;
   update();
 });
 
 function update() {
+  // mark active circles
   circles.forEach((circle, idx) => {
-    if (idx < current) {
-      circle.classList.add('active');
+    if (idx < currentStep) {
+      circle.classList.add("active");
     } else {
-      circle.classList.remove('active');
+      circle.classList.remove("active");
     }
   });
 
-  const activeCount = document.querySelectorAll('.circle.active').length;
-  const pct = ((activeCount - 1) / (circles.length - 1)) * 100;
-  progress.style.width = pct + '%';
+  // set progress width in simple steps (0%, 25%, 50%, 75%, 100%)
+  progress.style.width = ((currentStep - 1) / (circles.length - 1)) * 100 + "%";
 
-  prevBtn.disabled = current === 1;
-  nextBtn.disabled = current === circles.length;
+  // handle buttons
+  prev.disabled = currentStep === 1;
+  next.disabled = currentStep === circles.length;
 }
